@@ -12,6 +12,10 @@ class Weather:
         response = response.read()
 
         jsonEndpointData = json.loads(response)
+        """ refactoring idea in python3 for the lines 11,12,13:
+        with urlopen(url) as res:
+            jsonEndpointData = json.loads(url.read().decode())
+        """
         currentAndForecastWeather = {}
         currentAndForecastWeather['units'] = jsonEndpointData['query']['results']['channel']['units']
         currentAndForecastWeather['current'] = jsonEndpointData['query']['results']['channel']['item']['condition']
@@ -25,52 +29,35 @@ class Weather:
         return currentAndForecastWeather
 
     def getImageLink(self, code):
-        if int(code)==0: return 'http://l.yimg.com/a/i/us/we/52/0.gif'
-        if int(code)==1: return 'http://l.yimg.com/a/i/us/we/52/0.gif'
-        if int(code)==2: return 'http://l.yimg.com/a/i/us/we/52/0.gif'
-        if int(code)==3: return 'http://l.yimg.com/a/i/us/we/52/0.gif'
-        if int(code)==4: return 'http://l.yimg.com/a/i/us/we/52/0.gif'
-        if int(code)==5: return 'http://l.yimg.com/a/i/us/we/52/9.gif'
-        if int(code)==6: return 'http://l.yimg.com/a/i/us/we/52/9.gif'
-        if int(code)==7: return 'http://l.yimg.com/a/i/us/we/52/9.gif'
-        if int(code)==8: return 'http://l.yimg.com/a/i/us/we/52/9.gif'
-        if int(code)==9: return 'http://l.yimg.com/a/i/us/we/52/9.gif'
-        if int(code)==10: return 'http://l.yimg.com/a/i/us/we/52/12.gif'
-        if int(code)==11: return 'http://l.yimg.com/a/i/us/we/52/12.gif'
-        if int(code)==12: return 'http://l.yimg.com/a/i/us/we/52/12.gif'
-        if int(code)==13: return 'http://l.yimg.com/a/i/us/we/52/14.gif'
-        if int(code)==14: return 'http://l.yimg.com/a/i/us/we/52/14.gif'
-        if int(code)==15: return 'http://l.yimg.com/a/i/us/we/52/14.gif'
-        if int(code)==16: return 'http://l.yimg.com/a/i/us/we/52/14.gif'
-        if int(code)==17: return 'http://l.yimg.com/a/i/us/we/52/17.gif'
-        if int(code)==18: return 'http://l.yimg.com/a/i/us/we/52/17.gif'
-        if int(code)==19: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==20: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==21: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==22: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==23: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==24: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==25: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==26: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==27: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==28: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==29: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==30: return 'http://l.yimg.com/a/i/us/we/52/26.gif'
-        if int(code)==31: return 'http://l.yimg.com/a/i/us/we/52/31.gif'
-        if int(code)==32: return 'http://l.yimg.com/a/i/us/we/52/32.gif'
-        if int(code)==33: return 'http://l.yimg.com/a/i/us/we/52/31.gif'
-        if int(code)==34: return 'http://l.yimg.com/a/i/us/we/52/32.gif'
-        if int(code)==35: return 'http://l.yimg.com/a/i/us/we/52/35.gif'
-        if int(code)==36: return 'http://l.yimg.com/a/i/us/we/52/32.gif'
-        if int(code)==37: return 'http://l.yimg.com/a/i/us/we/52/37.gif'
-        if int(code)==38: return 'http://l.yimg.com/a/i/us/we/52/37.gif'
-        if int(code)==39: return 'http://l.yimg.com/a/i/us/we/52/39.gif'
-        if int(code)==40: return 'http://l.yimg.com/a/i/us/we/52/39.gif'
-        if int(code)==41: return 'http://l.yimg.com/a/i/us/we/52/41.gif'
-        if int(code)==42: return 'http://l.yimg.com/a/i/us/we/52/41.gif'
-        if int(code)==43: return 'http://l.yimg.com/a/i/us/we/52/41.gif'
-        if int(code)==44: return 'http://l.yimg.com/a/i/us/we/52/44.gif'
-        if int(code)==45: return 'http://l.yimg.com/a/i/us/we/52/45.gif'
-        if int(code)==46: return 'http://l.yimg.com/a/i/us/we/52/14.gif'
-        if int(code)==47: return 'http://l.yimg.com/a/i/us/we/52/45.gif'
+        code = int(code)
+        if code in range(0,5): 
+            return 'http://l.yimg.com/a/i/us/we/52/0.gif'
+        elif code in range(5, 10):
+            return 'http://l.yimg.com/a/i/us/we/52/9.gif'
+        elif code in range(10, 13):
+            return 'http://l.yimg.com/a/i/us/we/52/12.gif'
+        elif code in range(13, 17) or code == 46:
+            return 'http://l.yimg.com/a/i/us/we/52/14.gif'
+        elif code in (17,19):
+            return 'http://l.yimg.com/a/i/us/we/52/17.gif'
+        elif code in range(19, 31):
+            return 'http://l.yimg.com/a/i/us/we/52/26.gif'
+        elif code in (31, 33):
+            return 'http://l.yimg.com/a/i/us/we/52/31.gif'
+        elif code in range(32,37,2): 
+            return 'http://l.yimg.com/a/i/us/we/52/32.gif'
+        elif code == 35: 
+            return 'http://l.yimg.com/a/i/us/we/52/35.gif'
+        elif code in (37,38): 
+            return 'http://l.yimg.com/a/i/us/we/52/37.gif'
+        elif code in (39,40):
+            return 'http://l.yimg.com/a/i/us/we/52/39.gif'
+        elif code in range(41, 44):
+            return 'http://l.yimg.com/a/i/us/we/52/41.gif'
+        elif code in (42, 43): 
+            return 'http://l.yimg.com/a/i/us/we/52/41.gif'
+        elif code == 44:
+            return 'http://l.yimg.com/a/i/us/we/52/44.gif'
+        elif code in (45, 47): 
+            return 'http://l.yimg.com/a/i/us/we/52/45.gif'
         return 'http://l.yimg.com/a/i/us/we/52/3200.gif'
