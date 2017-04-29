@@ -14,7 +14,7 @@ class Weather:
         jsonEndpointData = json.loads(response)
         """ refactoring idea in python3 for the lines 11,12,13:
         with urlopen(url) as res:
-            jsonEndpointData = json.loads(url.read().decode())
+            jsonEndpointData = json.loads(res.read().decode())
         """
         currentAndForecastWeather = {}
         currentAndForecastWeather['units'] = jsonEndpointData['query']['results']['channel']['units']
