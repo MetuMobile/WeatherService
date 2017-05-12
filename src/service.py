@@ -8,7 +8,7 @@ class WeatherService:
 
     def __init__(self):
         self._initializeService()
-        self.app.add_url_rule('/weather/overall', '', self.getDailyWeather)
+        self.app.add_url_rule('/summary', '', self.getDailyWeather)
         self._runService()
 
     def getDailyWeather(self):
